@@ -19,7 +19,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes); // Fallback for misconfigured VITE_API_URL
 app.use('/api/service-logs', serviceLogRoutes);
+app.use('/service-logs', serviceLogRoutes); // Fallback for misconfigured VITE_API_URL
 
 const PORT = process.env.PORT || 5000;
 
