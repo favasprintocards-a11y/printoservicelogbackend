@@ -14,6 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '50mb' })); // Increase limit for base64 images
 
+app.get('/', (req, res) => {
+    res.send('Printo Service Log API is running...');
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/service-logs', serviceLogRoutes);
 
