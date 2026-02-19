@@ -20,7 +20,7 @@ const serviceLogSchema = mongoose.Schema({
         problemDescription: String,
     },
     supportDetails: {
-        requestType: [String], // Demo, Installation, Warranty, AMC, Chargeable
+        requestType: [String], // Demo, Installation, Warranty, Own Printer, Chargeable
         requestMode: String, // Telephone, Email
         receivedBy: String,
         customerContact: String,

@@ -49,7 +49,9 @@ const createServiceLog = async (req, res) => {
 // @access  Private
 const getServiceLogs = async (req, res) => {
     try {
-        const logs = await ServiceLog.find({}).sort({ createdAt: -1 });
+        const logs = await ServiceLog.find({})
+            .select('-engineerFeedback.engineerSignature -customerFeedback.signature')
+            .sort({ createdAt: -1 });
         res.json(logs);
     } catch (error) {
         res.status(500).json({ message: error.message });
