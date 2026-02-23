@@ -85,13 +85,15 @@ const updateServiceLog = async (req, res) => {
         const log = await ServiceLog.findById(req.params.id);
 
         if (log) {
-            log.basicDetails = req.body.basicDetails || log.basicDetails;
-            log.supportDetails = req.body.supportDetails || log.supportDetails;
-            log.sparesDetails = req.body.sparesDetails || log.sparesDetails;
-            log.briefDescription = req.body.briefDescription || log.briefDescription;
-            log.engineerFeedback = req.body.engineerFeedback || log.engineerFeedback;
-            log.customerFeedback = req.body.customerFeedback || log.customerFeedback;
-            log.requestDate = req.body.requestDate || log.requestDate;
+            // Update fields if they are present in req.body
+            // Use hasOwnProperty or check for undefined to allow empty strings and false values
+            if (req.body.basicDetails) log.basicDetails = req.body.basicDetails;
+            if (req.body.supportDetails) log.supportDetails = req.body.supportDetails;
+            if (req.body.sparesDetails) log.sparesDetails = req.body.sparesDetails;
+            if (req.body.briefDescription !== undefined) log.briefDescription = req.body.briefDescription;
+            if (req.body.engineerFeedback) log.engineerFeedback = req.body.engineerFeedback;
+            if (req.body.customerFeedback) log.customerFeedback = req.body.customerFeedback;
+            if (req.body.requestDate) log.requestDate = req.body.requestDate;
 
             // Recalculate total if charges changed
             if (req.body.sparesDetails) {
