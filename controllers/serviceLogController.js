@@ -49,9 +49,12 @@ const createServiceLog = async (req, res) => {
 // @access  Private
 const getServiceLogs = async (req, res) => {
     try {
+        const limit = parseInt(req.query.limit) || 200;
         const logs = await ServiceLog.find({})
             .select('-engineerFeedback.engineerSignature -customerFeedback.signature')
-            .sort({ createdAt: -1 });
+            .sort({ createdAt: -1 })
+            .limit(limit)
+            .lean();
         res.json(logs);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -63,7 +66,7 @@ const getServiceLogs = async (req, res) => {
 // @access  Private
 const getServiceLogById = async (req, res) => {
     try {
-        const log = await ServiceLog.findById(req.params.id);
+        const log = await ServiceLog.findById(req.params.id).lean();
         if (log) {
             res.json(log);
         } else {

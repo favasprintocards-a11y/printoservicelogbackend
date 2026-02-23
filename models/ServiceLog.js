@@ -68,5 +68,10 @@ const serviceLogSchema = mongoose.Schema({
     timestamps: true,
 });
 
+// Indexes for fast queries
+serviceLogSchema.index({ createdAt: -1 });
+serviceLogSchema.index({ ticketNumber: 1 });
+serviceLogSchema.index({ 'basicDetails.customerName': 1 });
+
 const ServiceLog = mongoose.model('ServiceLog', serviceLogSchema);
 module.exports = ServiceLog;
