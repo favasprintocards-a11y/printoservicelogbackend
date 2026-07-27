@@ -1,4 +1,12 @@
 const express = require('express');
+const dns = require('dns');
+
+// Fix for Node 18+ DNS resolution issues on some networks/Windows
+if (dns.setDefaultResultOrder) {
+    dns.setDefaultResultOrder('ipv4first');
+}
+dns.setServers(['8.8.8.8', '8.8.4.4']);
+
 const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
